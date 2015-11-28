@@ -4,5 +4,9 @@
     <string name="app_name">BarclaysFresh</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_payment_option_selector">PaymentOptionSelectorActivity</string>
+    <string name="title_activity_payumoney_checkout">PayumoneyCheckoutActivity</string>
+    <string name="title_activity_citrus_pay_checkout">CitrusPayCheckoutActivity</string>
+    <string name="title_activity_credit_debit_card_checkout">CreditDebitCardCheckoutActivity</string>
 
 </resources>
