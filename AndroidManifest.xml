@@ -22,6 +22,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".PaymentOptionSelectorActivity"
+            android:label="@string/title_activity_payment_option_selector" >
+        </activity>
+        <activity
+            android:name=".PayumoneyCheckoutActivity"
+            android:label="@string/title_activity_payumoney_checkout" >
+        </activity>
+        <activity
+            android:name=".CitrusPayCheckoutActivity"
+            android:label="@string/title_activity_citrus_pay_checkout" >
+        </activity>
+        <activity
+            android:name=".CreditDebitCardCheckoutActivity"
+            android:label="@string/title_activity_credit_debit_card_checkout" >
+        </activity>
     </application>
 
 </manifest>
