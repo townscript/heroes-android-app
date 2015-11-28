@@ -72,7 +72,7 @@
         android:layout_below="@+id/transactionvalue"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="41dp"
-        android:text="Proceed with Payment"
+        android:text="Proceed to Payment"
         tools:ignore="HardcodedText" />
 
 </RelativeLayout>

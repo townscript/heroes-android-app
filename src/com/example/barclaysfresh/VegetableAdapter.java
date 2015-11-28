@@ -43,7 +43,7 @@ public class VegetableAdapter extends ArrayAdapter<VegetableDTO>{
 		TextView price = (TextView) convertView.findViewById(R.id.price);
 		price.setText("Rs."+getItem(position).getPriceKg()+"/KG");
 		
-		final Button addVeggie = (Button) convertView.findViewById(R.id.maincaption);
+		final Button addVeggie = (Button) convertView.findViewById(R.id.addtocart);
 		
 		if(getItem(position).isAddedToCart()){
 			addVeggie.setVisibility(View.GONE);

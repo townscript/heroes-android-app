@@ -18,7 +18,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="Proceed to Payment" />
+        android:text="Checkout" 
+        android:background="#683592"
+        android:textColor="#FFFFFF"/>
 
     <TextView
         android:id="@+id/totalAmount"
@@ -27,7 +29,7 @@
         android:layout_above="@+id/confirmcheckout"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="18dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Total Amount : " />
+        android:text="Total Amount : "
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

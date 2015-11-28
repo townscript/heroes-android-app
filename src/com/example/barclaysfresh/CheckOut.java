@@ -1,14 +1,18 @@
 package com.example.barclaysfresh;
 
-import java.util.Iterator;
 import java.util.List;
 
-import com.example.barclaysfresh.CheckoutAdapter.ItemCountCallback;
-import com.example.barclaysfresh.HomePage;
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.barclaysfresh.CheckoutAdapter.ItemCountCallback;
 
 public class CheckOut extends Activity{
 	
@@ -16,16 +20,20 @@ public class CheckOut extends Activity{
 	private CheckoutAdapter dataAdapter;
 	private List<VegetableDTO> vegetablesCart;
 	private TextView displayTotalAmount;
+	private Button proceedToPayment;
 	private int totalAmount = 0;
+	Context context;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.checkout);	
+		context = this;
 		vegetablesCart = HomePage.getAddedVegetables();
 		vegetableslistView = (ListView) findViewById(R.id.checkoutitems);
 		displayTotalAmount = (TextView) findViewById(R.id.totalAmount);
+		proceedToPayment = (Button) findViewById(R.id.confirmcheckout);
 		dataAdapter = new CheckoutAdapter(this,
-				R.layout.ticket_registration_list_details, vegetablesCart, new ItemCountCallback() {
+				R.layout.listitem_checkout, vegetablesCart, new ItemCountCallback() {
 					
 					@Override
 					public void onPlus(int amount) {
@@ -45,6 +53,16 @@ public class CheckOut extends Activity{
 		vegetableslistView.setAdapter(dataAdapter);
 		
 		displayTotalAmount.setText("Grand Amount : " + totalAmount);
+		
+		proceedToPayment.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(context,PaymentOptionSelectorActivity.class);
+				i.putExtra(KeyConstants.TRANSACTION_VALUE, String.valueOf(totalAmount));
+				startActivity(i);
+			}
+		});
 	}
 
 }
