@@ -5,13 +5,11 @@ import java.util.List;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,7 +43,7 @@ public class VegetableAdapter extends ArrayAdapter<VegetableDTO>{
 		TextView price = (TextView) convertView.findViewById(R.id.price);
 		price.setText("Rs."+getItem(position).getPriceKg()+"/KG");
 		
-		final Button addVeggie = (Button) convertView.findViewById(R.id.maincaption);
+		final Button addVeggie = (Button) convertView.findViewById(R.id.addtocart);
 		
 		if(getItem(position).isAddedToCart()){
 			addVeggie.setVisibility(View.GONE);
