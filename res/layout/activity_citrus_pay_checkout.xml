@@ -9,8 +9,37 @@
     tools:context="com.example.barclaysfresh.CitrusPayCheckoutActivity" >
 
     <TextView
+        android:id="@+id/sushantmemberquestion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:text="Is Sushant Citrus Member?" />
+
+    <TextView
+        android:id="@+id/sushantmemberquestionvalue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/sushantmemberquestion"
+        android:layout_below="@+id/sushantmemberquestion"
+        android:layout_marginTop="17dp"
+        android:text="&lt;value>" />
+
+    <TextView
+        android:id="@+id/sushantcitrusamount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/sushantmemberquestionvalue"
+        android:layout_below="@+id/sushantmemberquestionvalue"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="79dp"
+        android:text="Sushant Citrus Amount?" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/sushantcitrusamount"
+        android:layout_below="@+id/sushantcitrusamount"
+        android:layout_marginTop="51dp"
+        android:text="&lt;value>" />
 
 </RelativeLayout>

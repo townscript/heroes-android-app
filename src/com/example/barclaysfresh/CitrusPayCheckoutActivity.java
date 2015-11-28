@@ -1,9 +1,14 @@
 package com.example.barclaysfresh;
 
+import com.citrus.sdk.CitrusClient;
+import com.citrus.sdk.Environment;
+import com.citrus.sdk.response.CitrusError;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class CitrusPayCheckoutActivity extends Activity {
 
@@ -11,6 +16,43 @@ public class CitrusPayCheckoutActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_citrus_pay_checkout);
+		
+		final TextView isSushantCitrusMember = (TextView)findViewById(R.id.sushantmemberquestion);
+		TextView isSushantCitrusAmount = (TextView)findViewById(R.id.sushantcitrusamount);
+		
+		
+		CitrusClient citrusClient = CitrusClient.getInstance(this);
+		
+		citrusClient.init("6WJKFBKTJYEP4LK62VEX", "7b82617cf4c6b1993b4f431ea87a5d24ebaced9f", 
+				"6m1rmtqhg4-JS-signin", "b5339f7c55dda128335d7fb2a6407ada", 
+				"6m1rmtqhg4", Environment.SANDBOX);
+		
+		 //First Parameter – SignUp Key
+		 //Second Parameter – SignUp Secret
+		 //Third Parameter – SignIn Key
+		 //Fourth Parameter - SignIn Secret
+		 //Fifth Parameter -   Vanity
+		 //Sixth Parameter -   Environment
+		
+		String emailId = "pawarsushant007@gmail.com";
+		String mobileNo = "9860553252";
+		
+		
+		citrusClient.isCitrusMember(emailId, mobileNo, new com.citrus.sdk.Callback<Boolean>() 
+				 {
+				   @Override
+				   public void success(Boolean citrusMember) {
+					   
+					   isSushantCitrusMember.setText(citrusMember.toString());
+					   
+				   }
+				 
+				   @Override
+				   public void error(CitrusError error) {}
+
+				 });
+				     
+		
 	}
 
 	@Override
