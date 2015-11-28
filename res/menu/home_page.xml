@@ -11,7 +11,7 @@
     -->
     <item
         android:id="@+id/checkout"
-        android:icon="@drawable/veggiecart"
+        android:icon="@drawable/cartstandard"
         android:title="cartitem"
         android:showAsAction="always">
     </item>

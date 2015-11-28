@@ -5,6 +5,15 @@ public class VegetableDTO {
 	private String name;
 	private int priceKg;
 	private boolean isAddedToCart;
+	public int getQuantitySelected() {
+		return quantitySelected;
+	}
+
+	public void setQuantitySelected(int quantitySelected) {
+		this.quantitySelected = quantitySelected;
+	}
+
+	private int quantitySelected;
 	
 	public boolean isAddedToCart() {
 		return isAddedToCart;
@@ -18,6 +27,7 @@ public class VegetableDTO {
 		super();
 		this.name = name;
 		this.priceKg = priceKg;
+		this.quantitySelected = 0;
 	}
 
 	public String getName() {
