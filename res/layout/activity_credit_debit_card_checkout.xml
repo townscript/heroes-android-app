@@ -9,8 +9,99 @@
     tools:context="com.example.barclaysfresh.CreditDebitCardCheckoutActivity" >
 
     <TextView
+        android:id="@+id/maincaption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="false"
+        android:text="Enter Credit/Debit Card Details"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/cardinput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cccard_activitiy_main_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="56dp"
+        android:ems="10"
+        android:hint="Enter Card Details" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/cardnameinput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cardinput"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="37dp"
+        android:ems="10"
+        android:hint="Enter name on card"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/textviewexpression"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/cardnameinput"
+        android:layout_centerVertical="true"
+        android:text="Expires on -"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/enddatemm"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/textviewexpression"
+        android:ems="10"
+        android:hint="MM"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/enddateyy"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/enddatemm"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/enddatemm"
+        android:ems="10"
+        android:hint="YY"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/entercvv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textviewexpression"
+        android:layout_below="@+id/enddatemm"
+        android:layout_marginTop="29dp"
+        android:text="Enter CVV -"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/cvvinput"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/entercvv"
+        android:layout_alignBottom="@+id/entercvv"
+        android:layout_toLeftOf="@+id/enddateyy"
+        android:ems="10"
+        android:hint="CVV"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/paymentproceedbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cvvinput"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="46dp"
+        android:text="Proceed with Payment" />
 
 </RelativeLayout>
