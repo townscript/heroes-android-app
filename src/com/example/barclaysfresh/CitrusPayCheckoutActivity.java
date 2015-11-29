@@ -1,28 +1,19 @@
 package com.example.barclaysfresh;
 
-import java.util.ArrayList;
-
-import com.citrus.cash.LoadMoney;
-import com.citrus.sdk.Callback;
-import com.citrus.sdk.CitrusClient;
-import com.citrus.sdk.Environment;
-import com.citrus.sdk.TransactionResponse;
-import com.citrus.sdk.classes.Amount;
-import com.citrus.sdk.payment.MerchantPaymentOption;
-import com.citrus.sdk.payment.NetbankingOption;
-import com.citrus.sdk.response.CitrusError;
-import com.citrus.sdk.response.CitrusResponse;
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.citrus.sdk.CitrusClient;
+import com.citrus.sdk.Environment;
+import com.citrus.sdk.classes.Amount;
+import com.citrus.sdk.response.CitrusError;
+import com.citrus.sdk.response.CitrusResponse;
 
 public class CitrusPayCheckoutActivity extends Activity {
 	
@@ -73,8 +64,6 @@ public class CitrusPayCheckoutActivity extends Activity {
 		 //Fifth Parameter -   Vanity
 		 //Sixth Parameter -   Environment
 		
-		String emailId = "sachin.aero@gmail.com";
-		String mobileNo = "9689557730"; 
 		
 		
 		citrusClient.isCitrusMember(userEmail, userPhoneNumber, new com.citrus.sdk.Callback<Boolean>() 
@@ -175,7 +164,7 @@ public class CitrusPayCheckoutActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.citrus_pay_checkout, menu);
+//		getMenuInflater().inflate(R.menu.citrus_pay_checkout, menu);
 		return true;
 	}
 
@@ -184,10 +173,10 @@ public class CitrusPayCheckoutActivity extends Activity {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
+		/*int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
-		}
+		}*/
 		return super.onOptionsItemSelected(item);
 	}
 }

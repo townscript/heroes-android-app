@@ -33,8 +33,9 @@ public class PaymentOptionSelectorActivity extends Activity {
 		paymentButton = (Button) findViewById(R.id.proceedpayment);
 		paymentOptions = (RadioGroup) findViewById(R.id.paymentoptions);
 		
-		String transactionValue = getIntent().getStringExtra(KeyConstants.TRANSACTION_VALUE);
+		final String transactionValue = getIntent().getStringExtra(KeyConstants.TRANSACTION_VALUE);
 		transactionValueView.setText("Rs " + transactionValue);
+		
 		
 		
 		// According to the user selected state of each payment option, 
@@ -47,6 +48,7 @@ public class PaymentOptionSelectorActivity extends Activity {
 				
 				if(getSelectedPaymentOption().equals(PaymentOption.PAYU_MONEY)) {
 					Intent i = new Intent(PaymentOptionSelectorActivity.this, PayumoneyCheckoutActivity.class);
+					i.putExtra(KeyConstants.TRANSACTION_VALUE, transactionValue);
 					PaymentOptionSelectorActivity.this.startActivity(i);
 				}
 				
@@ -79,9 +81,9 @@ public class PaymentOptionSelectorActivity extends Activity {
 			return PaymentOption.PAYU_MONEY;
 		}
 		
-		if(radioButton.getId() == R.id.ccdc) {
+		/*if(radioButton.getId() == R.id.ccdc) {
 			return PaymentOption.CREDIT_AND_DEBIT_CARD;
-		}
+		}*/
 		
 		throw new IllegalStateException("Payment Option Radio button doesn't "
 				+ "matches any option in the system");
