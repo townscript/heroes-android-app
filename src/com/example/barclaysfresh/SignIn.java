@@ -29,6 +29,15 @@ public class SignIn extends Activity{
 		contact = (EditText) findViewById(R.id.phoneET);
 		signIn = (Button) findViewById(R.id.signUpBtn);
 		
+
+		if(Utils.getUserFromSharedPreferences(context)!=null){
+			UserDTO user = Utils.getUserFromSharedPreferences(context);
+			username.setText(user.getUsername());
+			password.setText(user.getPassword());
+			email.setText(user.getEmail());
+			contact.setText(user.getContact());
+		}
+		
 		signIn.setOnClickListener(new OnClickListener() {
 			
 			@Override

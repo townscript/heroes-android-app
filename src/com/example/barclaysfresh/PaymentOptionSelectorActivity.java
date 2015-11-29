@@ -24,6 +24,8 @@ public class PaymentOptionSelectorActivity extends Activity {
 	
 	private RadioGroup paymentOptions;
 	
+	private String transactionValue;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -33,7 +35,8 @@ public class PaymentOptionSelectorActivity extends Activity {
 		paymentButton = (Button) findViewById(R.id.proceedpayment);
 		paymentOptions = (RadioGroup) findViewById(R.id.paymentoptions);
 		
-		final String transactionValue = getIntent().getStringExtra(KeyConstants.TRANSACTION_VALUE);
+
+		transactionValue = getIntent().getStringExtra(KeyConstants.TRANSACTION_VALUE);
 		transactionValueView.setText("Rs " + transactionValue);
 		
 		
@@ -54,6 +57,7 @@ public class PaymentOptionSelectorActivity extends Activity {
 				
 				if(getSelectedPaymentOption().equals(PaymentOption.CITRUS_PAY)) {
 					Intent i = new Intent(PaymentOptionSelectorActivity.this, CitrusPayCheckoutActivity.class);
+					i.putExtra(KeyConstants.TRANSACTION_VALUE, transactionValue);
 					PaymentOptionSelectorActivity.this.startActivity(i);
 				}
 				
