@@ -20,4 +20,7 @@ public class KeyConstants {
 	public static final String APPLICATION_ID = "";
 	public static final String PAYMENT_OPTIONS_URL 
 	= "http://52.74.125.123/api/application/getpaymentoptions?appid=" + "4";
+	
+	public static final String SERVER_BASE_URL = "http://52.74.125.123/api/";
+	public static final String WEB_PAGE_URL = "application/getpaymentoptions"; 
 }

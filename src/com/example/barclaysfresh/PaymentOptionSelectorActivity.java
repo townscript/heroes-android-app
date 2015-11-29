@@ -1,7 +1,13 @@
 package com.example.barclaysfresh;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.json.simple.JSONObject;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -73,9 +79,28 @@ public class PaymentOptionSelectorActivity extends Activity {
 			@Override
 			protected List<String> doInBackground(Void... params) {
 				
-				// Test code
 				List<String> values = new ArrayList();
-				values.add("PAYUMONEY");
+				
+				String URL_param = "?appid=4";
+				
+				//Getting response from the server
+				JSONObject jsonObject = (JSONObject) HttpUtility.getHttpGetResponse(KeyConstants.SERVER_BASE_URL,
+						KeyConstants.WEB_PAGE_URL + URL_param);
+
+				if (jsonObject.get("result").equals("Success")) {
+
+					String data = (String) jsonObject.get("data");
+					Type merchantObject = new TypeToken<List<String>>() {
+					}.getType();
+
+					values = new Gson().fromJson(data, merchantObject);
+					
+				}
+				
+			
+				// Test code
+//				List<String> values1 = new ArrayList();
+//				values.add("PAYUMONEY");
 				
 				return values;
 			}
