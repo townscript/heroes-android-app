@@ -1,8 +1,15 @@
 package com.example.barclaysfresh;
 
+import java.util.ArrayList;
+
+import com.citrus.cash.LoadMoney;
+import com.citrus.sdk.Callback;
 import com.citrus.sdk.CitrusClient;
 import com.citrus.sdk.Environment;
+import com.citrus.sdk.TransactionResponse;
 import com.citrus.sdk.classes.Amount;
+import com.citrus.sdk.payment.MerchantPaymentOption;
+import com.citrus.sdk.payment.NetbankingOption;
 import com.citrus.sdk.response.CitrusError;
 import com.citrus.sdk.response.CitrusResponse;
 
@@ -11,6 +18,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,11 +33,12 @@ public class CitrusPayCheckoutActivity extends Activity {
 	private String userEmail;
 	private String userPassword;
 	
-	TextView helloMember = (TextView)findViewById(R.id.hellomember);
-	TextView amountToPay = (TextView)findViewById(R.id.amounttopaycaption);
-	TextView citrusMoneyAmount = (TextView)findViewById(R.id.amountincitruscaption);
+	TextView helloMember;
+	TextView amountToPay;
+	TextView citrusMoneyAmount;
 	
-	
+	Button loadMoneyButton;
+	Button doPaymentButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +100,8 @@ public class CitrusPayCheckoutActivity extends Activity {
 				 }});
 				     
 		
+		
+		         
 	}
 	
 	
