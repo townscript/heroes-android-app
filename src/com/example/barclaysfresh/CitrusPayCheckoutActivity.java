@@ -5,12 +5,14 @@ import com.citrus.sdk.Environment;
 import com.citrus.sdk.response.CitrusError;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 public class CitrusPayCheckoutActivity extends Activity {
+	Context context;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,19 +25,19 @@ public class CitrusPayCheckoutActivity extends Activity {
 		
 		CitrusClient citrusClient = CitrusClient.getInstance(this);
 		
-		citrusClient.init("6WJKFBKTJYEP4LK62VEX", "7b82617cf4c6b1993b4f431ea87a5d24ebaced9f", 
-				"6m1rmtqhg4-JS-signin", "b5339f7c55dda128335d7fb2a6407ada", 
+		citrusClient.init("6m1rmtqhg4-signup", "97e628e89f3ae9b6f22762f318318907", 
+				"6m1rmtqhg4-signin", "dbd4283789743acb905598173fdf464f", 
 				"6m1rmtqhg4", Environment.SANDBOX);
 		
-		 //First Parameter – SignUp Key
+		 //First Parameter – SignUp Key 
 		 //Second Parameter – SignUp Secret
 		 //Third Parameter – SignIn Key
 		 //Fourth Parameter - SignIn Secret
 		 //Fifth Parameter -   Vanity
 		 //Sixth Parameter -   Environment
 		
-		String emailId = "pawarsushant007@gmail.com";
-		String mobileNo = "9860553252";
+		String emailId = "sachin.aero@gmail.com";
+		String mobileNo = "9689557730"; 
 		
 		
 		citrusClient.isCitrusMember(emailId, mobileNo, new com.citrus.sdk.Callback<Boolean>() 
@@ -43,14 +45,17 @@ public class CitrusPayCheckoutActivity extends Activity {
 				   @Override
 				   public void success(Boolean citrusMember) {
 					   
-					   isSushantCitrusMember.setText(citrusMember.toString());
+					   isSushantCitrusMember.setText(Utils.getUserFromSharedPreferences(context).getUsername()+citrusMember.toString());
 					   
 				   }
 				 
 				   @Override
-				   public void error(CitrusError error) {}
+				   public void error(CitrusError error) {
+				   
+				   isSushantCitrusMember.setText(error.getMessage());
+				   System.out.println("ERROR**********" + error.getMessage());
 
-				 });
+				 }});
 				     
 		
 	}
