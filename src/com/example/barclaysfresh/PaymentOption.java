@@ -2,11 +2,28 @@ package com.example.barclaysfresh;
 
 public enum PaymentOption {
 	
-	PAYU_MONEY,
 	
-	CITRUS_PAY,
+	PAYU_MONEY {
+		@Override
+		String getStringValue() {
+			return "payumoney";
+		}
+	},
 	
-	CREDIT_AND_DEBIT_CARD;
+	CITRUS_PAY {
+		@Override
+		String getStringValue() {
+			return "citruspay";
+		}
+	},
+	
+	CREDIT_AND_DEBIT_CARD {
+		@Override
+		String getStringValue() {
+			return "ccdbcard";
+		}
+	};
+	
 	
 	public static PaymentOption getValue(String input) {
 		
@@ -24,5 +41,7 @@ public enum PaymentOption {
 		
 		throw new IllegalStateException("There is no PaymentOption code with value - " + input);
 	}
+	
+	abstract String getStringValue();
 
 }

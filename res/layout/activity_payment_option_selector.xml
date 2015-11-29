@@ -40,8 +40,21 @@
             android:text="Citrus Pay"
             tools:ignore="HardcodedText" />
 
+        <RadioButton
+            android:id="@+id/ccdb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Credit/Debit Card" />
 
     </RadioGroup>
+
+    <ProgressBar
+        android:id="@+id/progressbarpaymentoptions"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="false"
+        android:layout_centerInParent="true" />
 
     <TextView
         android:id="@+id/transactionvalue"

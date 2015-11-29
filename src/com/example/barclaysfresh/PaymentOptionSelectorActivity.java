@@ -1,16 +1,23 @@
 package com.example.barclaysfresh;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.opengl.Visibility;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /*
  * This will be displaying the page where User will be making selections among various payment options
@@ -19,10 +26,13 @@ public class PaymentOptionSelectorActivity extends Activity {
 
 	
 	private TextView transactionValueView;
-	
 	private Button paymentButton;
-	
 	private RadioGroup paymentOptions;
+	private ProgressBar progressBar;
+	
+	private RadioButton radioButtonPayUMoney;
+	private RadioButton radioButtonCitrusPay;
+	private RadioButton radioButtonCCDebitCard;
 	
 	private String transactionValue;
 	
@@ -34,11 +44,64 @@ public class PaymentOptionSelectorActivity extends Activity {
 		transactionValueView = (TextView) findViewById(R.id.transactionvalue);
 		paymentButton = (Button) findViewById(R.id.proceedpayment);
 		paymentOptions = (RadioGroup) findViewById(R.id.paymentoptions);
+		progressBar = (ProgressBar) findViewById(R.id.progressbarpaymentoptions);
+		
+		radioButtonPayUMoney = (RadioButton)findViewById(R.id.payumoney);
+		radioButtonCitrusPay = (RadioButton)findViewById(R.id.citruspay);
+		radioButtonCCDebitCard = (RadioButton)findViewById(R.id.ccdb);
 		
 
 		transactionValue = getIntent().getStringExtra(KeyConstants.TRANSACTION_VALUE);
 		transactionValueView.setText("Rs " + transactionValue);
 		
+		
+		// We have to load the Payment Options defined by Merchant on the Server
+		new AsyncTask<Void, String, List<String>>() {
+			
+			protected void preExecute() {
+				super.onPreExecute();
+				
+				progressBar.setVisibility(View.VISIBLE);
+				transactionValueView.setVisibility(View.GONE);
+				paymentButton.setVisibility(View.GONE);
+				paymentOptions.setVisibility(View.GONE);
+			}
+
+			@Override
+			protected List<String> doInBackground(Void... params) {
+				
+				// Test code
+				List<String> values = new ArrayList();
+				values.add("PAYUMONEY");
+				
+				return values;
+			}
+
+			protected void onPostExecute(List<String> result) {
+				
+				progressBar.setVisibility(View.GONE);
+				
+				transactionValueView.setVisibility(View.VISIBLE);
+				paymentButton.setVisibility(View.VISIBLE);
+				paymentOptions.setVisibility(View.VISIBLE);
+				
+				if(!result.isEmpty()) {
+					renderPaymentOptions(result);
+				}
+				
+			}
+			
+			protected void onProgressUpdate(String... values) {
+				super.onProgressUpdate(values);
+				
+				Toast.makeText(PaymentOptionSelectorActivity.this, "Error - "
+						+ "while trying to load the data from server ", 
+						Toast.LENGTH_LONG).show();
+				
+				
+			}
+			
+		}.execute();
 		
 		
 		// According to the user selected state of each payment option, 
@@ -69,6 +132,23 @@ public class PaymentOptionSelectorActivity extends Activity {
 			}
 		});
 		
+		
+		
+	}
+	
+	private void renderPaymentOptions(List<String> values) {
+		
+		if(values.contains(PaymentOption.PAYU_MONEY.getStringValue().toUpperCase())) {
+			radioButtonPayUMoney.setVisibility(View.VISIBLE);
+		}
+		
+		if(values.contains(PaymentOption.CITRUS_PAY.getStringValue().toUpperCase())) {
+			radioButtonCitrusPay.setVisibility(View.VISIBLE);
+		}
+		
+		if(values.contains(PaymentOption.CREDIT_AND_DEBIT_CARD.getStringValue().toUpperCase())) {
+			radioButtonCCDebitCard.setVisibility(View.VISIBLE);
+		}
 	}
 
 	
@@ -85,9 +165,9 @@ public class PaymentOptionSelectorActivity extends Activity {
 			return PaymentOption.PAYU_MONEY;
 		}
 		
-		/*if(radioButton.getId() == R.id.ccdc) {
+		if(radioButton.getId() == R.id.ccdb) {
 			return PaymentOption.CREDIT_AND_DEBIT_CARD;
-		}*/
+		}
 		
 		throw new IllegalStateException("Payment Option Radio button doesn't "
 				+ "matches any option in the system");
