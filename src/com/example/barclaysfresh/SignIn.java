@@ -33,6 +33,13 @@ public class SignIn extends Activity{
 			
 			@Override
 			public void onClick(View v) {
+				UserDTO userDTO = new UserDTO();
+				userDTO.setUsername(username.getText().toString());
+				userDTO.setPassword(password.getText().toString());
+				userDTO.setEmail(email.getText().toString());
+				userDTO.setContact(contact.getText().toString());
+
+				Utils.setUserDtoSP(context,userDTO);
 				Intent i = new Intent(context,HomePage.class);
 				startActivity(i);
 			}

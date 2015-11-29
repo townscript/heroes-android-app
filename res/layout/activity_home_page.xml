@@ -4,13 +4,27 @@
     android:layout_height="match_parent"
     tools:context="com.example.barclaysfresh.HomePage" >
 
-    <ListView
-        android:id="@+id/vegetables"
+    <RelativeLayout
+        android:id="@+id/listlayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" >
+        android:layout_height="match_parent" >
 
-    </ListView>
+        <ListView
+            android:id="@+id/vegetables"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true" >
+        </ListView>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#683592"
+        android:text="Logout"
+        android:textColor="#FFFFFF" />
 
 </RelativeLayout>

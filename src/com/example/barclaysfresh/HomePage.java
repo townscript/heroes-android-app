@@ -5,24 +5,33 @@ import java.util.Iterator;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class HomePage extends Activity {
 
 	private List<VegetableDTO> vegetables;
 	private ListView vegetableslistView;
 	private VegetableAdapter dataAdapter;
+	private Button logout;
+	Context context;
 
 	static List<VegetableDTO> vegetablesCart = new ArrayList<VegetableDTO>();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		context = this;
 		setContentView(R.layout.activity_home_page);	
 		vegetableslistView = (ListView) findViewById(R.id.vegetables);
+		logout = (Button) findViewById(R.id.logout);
 		
 		vegetables = new ArrayList<VegetableDTO>();
 		vegetables.add(new VegetableDTO("Potato",20));
@@ -37,6 +46,16 @@ public class HomePage extends Activity {
 				R.layout.listitem_eventlistitem, vegetables);
 		
 		vegetableslistView.setAdapter(dataAdapter);
+		
+		logout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Utils.clearUserFromSharedPreferences(context);
+				Toast.makeText(context, "Successfully logged out.",
+						Toast.LENGTH_SHORT).show();
+			}
+		});
 		
 		
 	}
