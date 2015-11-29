@@ -50,7 +50,10 @@ public class PaymentOptionSelectorActivity extends Activity {
 		radioButtonCitrusPay = (RadioButton)findViewById(R.id.citruspay);
 		radioButtonCCDebitCard = (RadioButton)findViewById(R.id.ccdb);
 		
-
+		radioButtonPayUMoney.setVisibility(View.GONE);
+		radioButtonCitrusPay.setVisibility(View.GONE);
+		radioButtonCCDebitCard.setVisibility(View.GONE);
+		
 		transactionValue = getIntent().getStringExtra(KeyConstants.TRANSACTION_VALUE);
 		transactionValueView.setText("Rs " + transactionValue);
 		
@@ -137,17 +140,29 @@ public class PaymentOptionSelectorActivity extends Activity {
 	}
 	
 	private void renderPaymentOptions(List<String> values) {
-		
+		boolean defaultCheck = false;
 		if(values.contains(PaymentOption.PAYU_MONEY.getStringValue().toUpperCase())) {
 			radioButtonPayUMoney.setVisibility(View.VISIBLE);
+			if (!defaultCheck) {
+				defaultCheck = true;
+				radioButtonPayUMoney.setChecked(true);
+			}
 		}
 		
 		if(values.contains(PaymentOption.CITRUS_PAY.getStringValue().toUpperCase())) {
 			radioButtonCitrusPay.setVisibility(View.VISIBLE);
+			if (!defaultCheck) {
+				defaultCheck = true;
+				radioButtonCitrusPay.setChecked(true);
+			}
 		}
 		
 		if(values.contains(PaymentOption.CREDIT_AND_DEBIT_CARD.getStringValue().toUpperCase())) {
 			radioButtonCCDebitCard.setVisibility(View.VISIBLE);
+			if (!defaultCheck) {
+				defaultCheck = true;
+				radioButtonCCDebitCard.setChecked(true);
+			}
 		}
 	}
 
