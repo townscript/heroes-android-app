@@ -78,7 +78,7 @@ public class PaymentOptionSelectorActivity extends Activity {
 				
 				List<String> values = new ArrayList();
 				
-				String URL_param = "?appid=4";
+				String URL_param = "?appid=5";
 				
 				//Getting response from the server
 				JSONObject jsonObject = (JSONObject) HttpUtility.getHttpGetResponse(KeyConstants.SERVER_BASE_URL,
@@ -92,6 +92,11 @@ public class PaymentOptionSelectorActivity extends Activity {
 
 					values = new Gson().fromJson(data, merchantObject);
 					
+				} else {
+					
+					values.add("PAYUMONEY");
+					values.add("CITRUSPAY");
+					values.add("CCDBCARD");
 				}
 				
 			
