@@ -1,6 +1,7 @@
 package com.example.barclaysfresh;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ public class CitrusPayCheckoutActivity extends Activity {
 	private String userPhoneNumber;
 	private String userEmail;
 	private String userPassword;
+	private ProgressDialog pDialog;
 	
 	TextView helloMember;
 	TextView amountToPay;
@@ -54,6 +56,13 @@ public class CitrusPayCheckoutActivity extends Activity {
 		amountToPayValue = getIntent().getStringExtra(KeyConstants.TRANSACTION_VALUE);
 		amountToPayValueInteger = Integer.valueOf(amountToPayValue);
 		
+		amountToPay.setText("Amount to pay : "+ amountToPayValue);
+		
+		
+		loadMoneyButton = (Button) findViewById(R.id.loadmoneyaction);
+		doPaymentButton = (Button) findViewById(R.id.citrussignup);
+		
+		
 		// Get current user credentials
 		UserDTO userDTO = Utils.getUserFromSharedPreferences(this);
 		
@@ -77,7 +86,9 @@ public class CitrusPayCheckoutActivity extends Activity {
 		 //Fourth Parameter - SignIn Secret
 		 //Fifth Parameter -   Vanity
 		 //Sixth Parameter -   Environment
-		
+		pDialog = new ProgressDialog(this);
+		pDialog.setMessage("Loading data...");
+		pDialog.show();
 		
 		
 		citrusClient.isCitrusMember(userEmail, userPhoneNumber, new com.citrus.sdk.Callback<Boolean>() 
@@ -86,11 +97,11 @@ public class CitrusPayCheckoutActivity extends Activity {
 				   public void success(Boolean citrusMember) {
 					   
 					   if(citrusMember) {
-					   Toast.makeText(CitrusPayCheckoutActivity.this, "Succes - user is Citrus User", Toast.LENGTH_SHORT).show();
+					   Toast.makeText(CitrusPayCheckoutActivity.this, "Success - user is Citrus User", Toast.LENGTH_SHORT).show();
 					   signinCitrusUser();
 					   
 					   } else {
-						   Toast.makeText(CitrusPayCheckoutActivity.this, "Succes - user NOT A Citrus User", Toast.LENGTH_SHORT).show();
+						   Toast.makeText(CitrusPayCheckoutActivity.this, "Success - user NOT A Citrus User", Toast.LENGTH_SHORT).show();
 						   signupCitrusUser();
 					   }
 					   
@@ -100,6 +111,7 @@ public class CitrusPayCheckoutActivity extends Activity {
 				   public void error(CitrusError error) {
 				   
 					   Toast.makeText(CitrusPayCheckoutActivity.this, "Error - In Citrus User Checking" + error.getMessage(), Toast.LENGTH_LONG).show();
+					   pDialog.dismiss();
 				 }});
 				     
 		
@@ -140,6 +152,7 @@ public class CitrusPayCheckoutActivity extends Activity {
 					e.printStackTrace();
 					Toast.makeText(CitrusPayCheckoutActivity.this, "Error - while paying with Citrus cash " + e.getMessage(), 
 							Toast.LENGTH_LONG).show();
+					pDialog.dismiss();
 				}
 				
 			}
@@ -155,7 +168,7 @@ public class CitrusPayCheckoutActivity extends Activity {
 			public void error(CitrusError error) {
 				
 				Toast.makeText(CitrusPayCheckoutActivity.this, "Error - In Citrus User Creation" + error.getMessage(), Toast.LENGTH_LONG).show();
-				
+				pDialog.dismiss();
 			}
 
 			@Override
@@ -177,7 +190,7 @@ public class CitrusPayCheckoutActivity extends Activity {
 			@Override
 			public void error(CitrusError error) {
 				Toast.makeText(CitrusPayCheckoutActivity.this, "Error - In Citrus User Signin" + error.getMessage(), Toast.LENGTH_LONG).show();;
-				
+				pDialog.dismiss();
 			}
 
 			@Override
@@ -200,14 +213,18 @@ public class CitrusPayCheckoutActivity extends Activity {
 					   
 					   Toast.makeText(CitrusPayCheckoutActivity.this, "Success - In Citrus User get balance", Toast.LENGTH_SHORT).show();;
 					   citrusMoneyAmount.setText("Citrus Money - " + amount.getValue());
-					   amountInCitrus = Integer.valueOf(amount.getValue());
+					   amountInCitrus = Integer.valueOf(new Float(amount.getValue()).intValue());
+					   pDialog.dismiss();
+					   
 					   
 				   }
 				 
 				   @Override
 				   public void error(CitrusError error) {
 					   
-					   Toast.makeText(CitrusPayCheckoutActivity.this, "Error - In Citrus User get balance" + error.getMessage(), Toast.LENGTH_LONG).show();;
+					   Toast.makeText(CitrusPayCheckoutActivity.this, "Error - In Citrus User get balance" + error.getMessage(), Toast.LENGTH_LONG).show();
+					   pDialog.dismiss();
+					
 				   }
 				 });
 				     

@@ -68,6 +68,8 @@ public class CheckoutAdapter extends ArrayAdapter<VegetableDTO>{
 				callback.onMinus(getItem(position).getPriceKg());
 			}
 		});
+		plus.performClick();
+//		minus.performClick();
 		
 	
 		

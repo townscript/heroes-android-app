@@ -19,12 +19,12 @@
     </RelativeLayout>
 
     <Button
-        android:id="@+id/logout"
+        android:id="@+id/gotocart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="#683592"
-        android:text="Logout"
+        android:text="Go to cart"
         android:textColor="#FFFFFF" />
 
 </RelativeLayout>
