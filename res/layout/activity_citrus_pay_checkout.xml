@@ -8,38 +8,48 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.barclaysfresh.CitrusPayCheckoutActivity" >
 
-    <TextView
-        android:id="@+id/sushantmemberquestion"
+    <Button
+        android:id="@+id/citrussignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Is Sushant Citrus Member?" />
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="Make Payment" />
+
+    <Button
+        android:id="@+id/loadmoneyaction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/citrussignup"
+        android:layout_alignBottom="@+id/citrussignup"
+        android:layout_alignRight="@+id/hellomember"
+        android:text="Load money" />
 
     <TextView
-        android:id="@+id/sushantmemberquestionvalue"
+        android:id="@+id/amountincitruscaption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/sushantmemberquestion"
-        android:layout_below="@+id/sushantmemberquestion"
-        android:layout_marginTop="17dp"
-        android:text="&lt;value>" />
+        android:layout_above="@+id/citrussignup"
+        android:layout_marginBottom="54dp"
+        android:layout_toLeftOf="@+id/citrussignup"
+        android:text="Citrus Money - &lt;value>" />
 
     <TextView
-        android:id="@+id/sushantcitrusamount"
+        android:id="@+id/hellomember"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/sushantmemberquestionvalue"
-        android:layout_below="@+id/sushantmemberquestionvalue"
-        android:layout_marginLeft="14dp"
-        android:layout_marginTop="79dp"
-        android:text="Sushant Citrus Amount?" />
+        android:layout_alignLeft="@+id/amountincitruscaption"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="32dp"
+        android:text="Hello &lt;member name>" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/amounttopaycaption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/sushantcitrusamount"
-        android:layout_below="@+id/sushantcitrusamount"
-        android:layout_marginTop="51dp"
-        android:text="&lt;value>" />
+        android:layout_above="@+id/amountincitruscaption"
+        android:layout_alignLeft="@+id/amountincitruscaption"
+        android:layout_marginBottom="24dp"
+        android:text="Amount to pay - &lt;value>" />
 
 </RelativeLayout>
