@@ -2,6 +2,7 @@ package com.example.barclaysfresh;
 
 import com.citrus.sdk.CitrusClient;
 import com.citrus.sdk.Environment;
+import com.citrus.sdk.classes.Amount;
 import com.citrus.sdk.response.CitrusError;
 import com.citrus.sdk.response.CitrusResponse;
 
@@ -22,6 +23,10 @@ public class CitrusPayCheckoutActivity extends Activity {
 	private String userEmail;
 	private String userPassword;
 	
+	TextView helloMember = (TextView)findViewById(R.id.hellomember);
+	TextView amountToPay = (TextView)findViewById(R.id.amounttopaycaption);
+	TextView citrusMoneyAmount = (TextView)findViewById(R.id.amountincitruscaption);
+	
 	
 
 	@Override
@@ -29,9 +34,9 @@ public class CitrusPayCheckoutActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_citrus_pay_checkout);
 		
-		final TextView helloMember = (TextView)findViewById(R.id.hellomember);
-		final TextView amountToPay = (TextView)findViewById(R.id.amounttopaycaption);
-		final TextView citrusMoneyAmount = (TextView)findViewById(R.id.amountincitruscaption);
+		helloMember = (TextView)findViewById(R.id.hellomember);
+		amountToPay = (TextView)findViewById(R.id.amounttopaycaption);
+		citrusMoneyAmount = (TextView)findViewById(R.id.amountincitruscaption);
 		
 		// Get current user credentials
 		UserDTO userDTO = Utils.getUserFromSharedPreferences(this);
@@ -66,15 +71,21 @@ public class CitrusPayCheckoutActivity extends Activity {
 				   @Override
 				   public void success(Boolean citrusMember) {
 					   
-					   Toast.makeText(CitrusPayCheckoutActivity.this, "This user is Citrus User", Toast.LENGTH_LONG).show();;
+					   if(citrusMember) {
+					   Toast.makeText(CitrusPayCheckoutActivity.this, "Succes - user is Citrus User", Toast.LENGTH_SHORT).show();
+					   signinCitrusUser();
 					   
+					   } else {
+						   Toast.makeText(CitrusPayCheckoutActivity.this, "Succes - user NOT A Citrus User", Toast.LENGTH_SHORT).show();
+						   signupCitrusUser();
+					   }
 					   
 				   }
 				 
 				   @Override
 				   public void error(CitrusError error) {
 				   
-					   Toast.makeText(CitrusPayCheckoutActivity.this, "Error - In Citrus User Checking" + error.getMessage(), Toast.LENGTH_LONG).show();;
+					   Toast.makeText(CitrusPayCheckoutActivity.this, "Error - In Citrus User Checking" + error.getMessage(), Toast.LENGTH_LONG).show();
 				 }});
 				     
 		
@@ -88,14 +99,15 @@ public class CitrusPayCheckoutActivity extends Activity {
 			@Override
 			public void error(CitrusError error) {
 				
-				Toast.makeText(CitrusPayCheckoutActivity.this, "Error - In Citrus User Creation" + error.getMessage(), Toast.LENGTH_LONG).show();;
+				Toast.makeText(CitrusPayCheckoutActivity.this, "Error - In Citrus User Creation" + error.getMessage(), Toast.LENGTH_LONG).show();
 				
 			}
 
 			@Override
 			public void success(CitrusResponse response) {
 				
-				Toast.makeText(CitrusPayCheckoutActivity.this, "Success - Citrus User Created", Toast.LENGTH_LONG).show();;
+				Toast.makeText(CitrusPayCheckoutActivity.this, "Success - Citrus User Created", Toast.LENGTH_SHORT).show();
+				signinCitrusUser();
 				
 			}
 						
@@ -115,11 +127,34 @@ public class CitrusPayCheckoutActivity extends Activity {
 
 			@Override
 			public void success(CitrusResponse response) {
-				Toast.makeText(CitrusPayCheckoutActivity.this, "Success - Citrus User Signed In", Toast.LENGTH_LONG).show();;
-				
+				Toast.makeText(CitrusPayCheckoutActivity.this, "Success - Citrus User Signed In", Toast.LENGTH_SHORT).show();;
+				accessCitrusCashInWallet();
 			}
 			
 		});
+		
+	}
+	
+	
+	private void accessCitrusCashInWallet() {
+		
+		citrusClient.getBalance(new com.citrus.sdk.Callback<Amount>() 
+				 {
+				   @Override
+				   public void success(Amount amount) {
+					   
+					   Toast.makeText(CitrusPayCheckoutActivity.this, "Success - In Citrus User get balance", Toast.LENGTH_SHORT).show();;
+					   citrusMoneyAmount.setText("Citrus Money - " + amount.getValue());
+					   
+				   }
+				 
+				   @Override
+				   public void error(CitrusError error) {
+					   
+					   Toast.makeText(CitrusPayCheckoutActivity.this, "Error - In Citrus User get balance" + error.getMessage(), Toast.LENGTH_LONG).show();;
+				   }
+				 });
+				     
 		
 	}
 	
