@@ -10,9 +10,9 @@
         android:title="@string/action_settings"/>
     -->
     <item
-        android:id="@+id/checkout"
-        android:icon="@drawable/cartwhite"
-        android:title="cartitem"
+        android:id="@+id/logout"
+        android:icon="@drawable/logout"
+        android:title="logout"
         android:showAsAction="always">
     </item>
 

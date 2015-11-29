@@ -21,7 +21,7 @@ public class HomePage extends Activity {
 	private List<VegetableDTO> vegetables;
 	private ListView vegetableslistView;
 	private VegetableAdapter dataAdapter;
-	private Button logout;
+	private Button gotocart;
 	Context context;
 
 	static List<VegetableDTO> vegetablesCart = new ArrayList<VegetableDTO>();
@@ -31,7 +31,7 @@ public class HomePage extends Activity {
 		context = this;
 		setContentView(R.layout.activity_home_page);	
 		vegetableslistView = (ListView) findViewById(R.id.vegetables);
-		logout = (Button) findViewById(R.id.logout);
+		gotocart = (Button) findViewById(R.id.gotocart);
 		
 		vegetables = new ArrayList<VegetableDTO>();
 		vegetables.add(new VegetableDTO("Potato",20));
@@ -47,13 +47,19 @@ public class HomePage extends Activity {
 		
 		vegetableslistView.setAdapter(dataAdapter);
 		
-		logout.setOnClickListener(new OnClickListener() {
+		gotocart.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				Utils.clearUserFromSharedPreferences(context);
-				Toast.makeText(context, "Successfully logged out.",
-						Toast.LENGTH_SHORT).show();
+				Intent i = new Intent(context,CheckOut.class);
+				Iterator<VegetableDTO> iterator = vegetables.iterator();
+				while(iterator.hasNext()){
+					VegetableDTO veggie = iterator.next();
+					if(veggie.isAddedToCart()){
+						vegetablesCart.add(veggie);
+					}
+				}
+				startActivity(i);
 			}
 		});
 		
@@ -77,18 +83,13 @@ public class HomePage extends Activity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.checkout) {
-			Intent i = new Intent(this,CheckOut.class);
-			Iterator<VegetableDTO> iterator = vegetables.iterator();
-			while(iterator.hasNext()){
-				VegetableDTO veggie = iterator.next();
-				if(veggie.isAddedToCart()){
-					vegetablesCart.add(veggie);
-				}
-			}
-//			i.putExtras(extras);
-			startActivity(i);
+		if (id == R.id.logout) {
+
+			Utils.clearUserFromSharedPreferences(context);
+			Toast.makeText(context, "Successfully logged out.",
+					Toast.LENGTH_SHORT).show();
 			return true;
+			
 		}
 		return super.onOptionsItemSelected(item);
 	}
