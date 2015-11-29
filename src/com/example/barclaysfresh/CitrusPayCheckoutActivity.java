@@ -8,13 +8,16 @@ import com.citrus.sdk.CitrusClient;
 import com.citrus.sdk.Environment;
 import com.citrus.sdk.TransactionResponse;
 import com.citrus.sdk.classes.Amount;
+import com.citrus.sdk.classes.CitrusException;
 import com.citrus.sdk.payment.MerchantPaymentOption;
 import com.citrus.sdk.payment.NetbankingOption;
+import com.citrus.sdk.payment.PaymentType;
 import com.citrus.sdk.response.CitrusError;
 import com.citrus.sdk.response.CitrusResponse;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,6 +42,10 @@ public class CitrusPayCheckoutActivity extends Activity {
 	
 	Button loadMoneyButton;
 	Button doPaymentButton;
+	
+	String amountToPayValue;
+	Integer amountToPayValueInteger;
+	Integer amountInCitrus = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +55,9 @@ public class CitrusPayCheckoutActivity extends Activity {
 		helloMember = (TextView)findViewById(R.id.hellomember);
 		amountToPay = (TextView)findViewById(R.id.amounttopaycaption);
 		citrusMoneyAmount = (TextView)findViewById(R.id.amountincitruscaption);
+		
+		amountToPayValue = getIntent().getStringExtra(KeyConstants.TRANSACTION_VALUE);
+		amountToPayValueInteger = Integer.valueOf(amountToPayValue);
 		
 		// Get current user credentials
 		UserDTO userDTO = Utils.getUserFromSharedPreferences(this);
@@ -100,8 +110,47 @@ public class CitrusPayCheckoutActivity extends Activity {
 				 }});
 				     
 		
+		loadMoneyButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				Intent i = new Intent(CitrusPayCheckoutActivity.this, CreditDebitCardCheckoutActivity.class);
+				CitrusPayCheckoutActivity.this.startActivity(i);
+				
+			}
+		});
 		
-		         
+		doPaymentButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				if(amountInCitrus < amountToPayValueInteger) {
+					Toast.makeText(CitrusPayCheckoutActivity.this, "You have to Load money as "
+							+ "Amount to pay is less than Amount in wallet", Toast.LENGTH_LONG).show();
+					return;
+				}
+				
+				Amount amount = new Amount(amountToPayValue);
+				
+				try {
+					citrusClient.payUsingCitrusCash(new PaymentType.CitrusCash(amount, "http://app/callback"), new Callback<TransactionResponse>() 
+							 {
+							   @Override
+							   public void success(TransactionResponse transactionResponse) { }
+							   
+							   @Override
+							   public void error(CitrusError error) { }
+							 });
+				} catch (CitrusException e) {
+					e.printStackTrace();
+					Toast.makeText(CitrusPayCheckoutActivity.this, "Error - while paying with Citrus cash " + e.getMessage(), 
+							Toast.LENGTH_LONG).show();
+				}
+				
+			}
+		});
 	}
 	
 	
@@ -158,6 +207,7 @@ public class CitrusPayCheckoutActivity extends Activity {
 					   
 					   Toast.makeText(CitrusPayCheckoutActivity.this, "Success - In Citrus User get balance", Toast.LENGTH_SHORT).show();;
 					   citrusMoneyAmount.setText("Citrus Money - " + amount.getValue());
+					   amountInCitrus = Integer.valueOf(amount.getValue());
 					   
 				   }
 				 
